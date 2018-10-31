@@ -123,10 +123,6 @@ export default class FilterableMultiSelect extends React.Component {
         }));
   };
 
-  handleClearSubOptions = checkedItem => {
-    checkedItem.checked = false;
-  };
-
   handleOnToggleMenu = () => {
     this.setState(state => ({
       isOpen: !state.isOpen,
@@ -257,12 +253,7 @@ export default class FilterableMultiSelect extends React.Component {
                 <ListBox.Field {...getButtonProps({ disabled })}>
                   {selectedItem.length > 0 && (
                     <ListBox.Selection
-                      clearSelection={e => {
-                        {
-                          clearSelection(e);
-                        }
-                        this.handleClearSubOptions(e);
-                      }}
+                      clearSelection={clearSelection}
                       selectionCount={selectedItem.length}
                     />
                   )}
@@ -287,8 +278,11 @@ export default class FilterableMultiSelect extends React.Component {
                 {isOpen && (
                   <ListBox.Menu style={wrapper}>
                     {groupedByCategory(items).map(group => {
-                      const categoryName = group[0].toUpperCase();
-                      const hasGroups = group[0] !== undefined ? true : false;
+                      const hasGroups = group[0] !== 'undefined' ? true : false;
+                      let categoryName = '';
+                      hasGroups
+                        ? (categoryName = group[0].toUpperCase())
+                        : null;
                       return (
                         <Fragment>
                           {hasGroups && (
