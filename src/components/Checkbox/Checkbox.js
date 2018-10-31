@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
+import CheckBoxIcon from './CheckBoxIcon';
 
 const Checkbox = ({
   className,
@@ -11,6 +12,8 @@ const Checkbox = ({
   hideLabel,
   wrapperClassName,
   title = '',
+  hasGroups,
+  isExpanded,
   ...other
 }) => {
   let input;
@@ -41,8 +44,10 @@ const Checkbox = ({
           }
         }}
       />
-      <label htmlFor={id} className={labelClasses} title={title || null}>
+
+      <label className={labelClasses} title={title || null}>
         <span className={innerLabelClasses}>{labelText}</span>
+        {hasGroups && <CheckBoxIcon isExpanded={isExpanded} />}
       </label>
     </div>
   );
